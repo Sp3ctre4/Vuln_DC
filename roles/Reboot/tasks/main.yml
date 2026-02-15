@@ -1,0 +1,2 @@
+- name: Reboot Windows
+  ansible.windows.win_reboot:

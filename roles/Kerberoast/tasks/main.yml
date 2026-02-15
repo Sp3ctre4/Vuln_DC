@@ -1,0 +1,4 @@
+- name: Set SPN for Adolin
+  ansible.windows.win_powershell:
+    script: |
+      Set-ADUser -Identity "adolin" -Add @{ServicePrincipalNames="HTTP\KHOLINAR-DC.ROSHAR.LOCAL"}

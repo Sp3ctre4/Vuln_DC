@@ -1,0 +1,29 @@
+- name: Set Minimum Password Length to 3 characters
+  win_security_policy:
+    section: System Access
+    key: MinimumPasswordLength
+    value: 3
+
+- name: Set Minimum Password Age to 0 days  
+  win_security_policy:
+    section: System Access
+    key: MinimumPasswordAge
+    value: 0
+
+- name: Set Maximum Password Age to 99 days
+  win_security_policy:
+    section: System Access
+    key: MaximumPasswordAge
+    value: 99
+
+- name: Set Enforce Password History to 0
+  win_security_policy:
+    section: System Access
+    key: PasswordHistorySize
+    value: 0
+
+- name: Disable Password Complexity Requirements
+  win_security_policy:
+    section: System Access
+    key: PasswordComplexity
+    value: 0

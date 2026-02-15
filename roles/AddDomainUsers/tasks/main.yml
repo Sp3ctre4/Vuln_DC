@@ -1,0 +1,23 @@
+- name: Create Active Directory users
+  ansible.windows.win_user:
+    fullname: "{{ item.first_name }} {{ item.last_name }}"
+    name: "{{ item.username }}"
+    password: "{{ item.password }}"
+    password_never_expires: true
+    groups:
+      - "{{ item.group }}"
+      - Domain Users
+    description: "{{ item.description }}"
+    state: present
+  loop: "{{ ad_users }}"
+  
+- name: Allow domain users to log on locally
+  ansible.windows.win_user_right:
+    name: SeInteractiveLogonRight
+    users: BUILTIN\Users
+    action: add
+
+- name: Set Profiles
+  community.windows.win_user_profile:
+    username: "{{item.username}}"
+  loop: "{{ ad_users }}"

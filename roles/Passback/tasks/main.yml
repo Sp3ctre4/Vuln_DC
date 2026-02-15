@@ -1,0 +1,79 @@
+    - name: Install Web Server (IIS) role
+      win_feature:
+        name: Web-Server
+        state: present
+        include_management_tools: true
+
+    - name: Install ASP 4.5
+      win_feature:
+        name: Web-Asp-Net45
+        state: present
+
+    - name: Install ASP
+      win_feature:
+        name: Web-ASP
+        state: present
+
+    - name: Install CGI IIS feature
+      win_feature:
+        name: Web-CGI
+        state: present
+
+    - name: Download PHP installer
+      win_command: powershell.exe -Command "Invoke-WebRequest -Uri https://windows.php.net/downloads/releases/php-7.4.33-nts-Win32-vc15-x64.zip -OutFile C:\php-installer.zip"
+      ignore_errors: true
+
+    - name: Extract PHP installer
+      win_command: powershell.exe -Command "Expand-Archive -Path C:\php-installer.zip -DestinationPath C:\php"
+      ignore_errors: true
+      
+    - name: Configure PHP.ini part 1
+      win_command: powershell.exe -Command "Set-Content -Path C:\php\php.ini -Value 'extension_dir = \"C:\php\ext\"'"
+      ignore_errors: true
+
+    - name: Configure PHP.ini part 2
+      win_command: powershell.exe -Command "Add-Content -Path C:\php\php.ini -Value 'cgi.force_redirect = 0'"
+      ignore_errors: true
+
+    - name: Configure PHP.ini ldap extensions part 3 
+      win_command: powershell.exe -Command "Add-Content -Path C:\php\php.ini -Value 'extension = php_ldap.dll'"
+      ignore_errors: true
+
+    - name: Set Path environment variable
+      win_environment:
+        state: present
+        name: Path
+        value: "{{ ansible_env.Path }};C:\\php"
+        level: machine
+
+    - name: Add Handler Mapping for php files
+      win_command: powershell.exe -Command "Import-Module WebAdministration; Add-WebConfigurationProperty -PSPath 'MACHINE/WEBROOT/APPHOST' -Filter 'system.webServer/handlers' -Name '.' -Value @{name='PHP_via_CGI';path='*.php';verb='*';modules='CgiModule';scriptProcessor='C:\php\php-cgi.exe';resourceType='Either'}"
+      ignore_errors: true
+
+    - name: Enable PHP CGI executable in IIS ISAPI and CGI restrictions (CGI)
+      win_command: powershell.exe Add-WebConfiguration /system.webServer/security/isapiCgiRestriction -value @{path='C:\php\php-cgi.exe';allowed='True'}
+      ignore_errors: true
+
+    - name: Enable PHP CGI executable in IIS ISAPI and CGI restrictions (PHP)
+      win_command: powershell.exe Add-WebConfiguration /system.webServer/security/isapiCgiRestriction -value @{path='C:\php\php.exe';allowed='True'}
+      ignore_errors: true
+
+    - name: Copy printer to wwwroot
+      ansible.windows.win_copy:
+        src: files/printer
+        dest: C:\inetpub\wwwroot
+
+    - name: Copy ldap_settings to wwwroot
+      ansible.windows.win_copy:
+        src: files/ldap_settings
+        dest: C:\inetpub\wwwroot
+
+#    - name: Copy access to wwwroot
+#      ansible.windows.win_copy:
+#        src: files/access
+#        dest: C:\inetpub\wwwroot
+
+    - name: Restart IIS
+      win_service:
+        name: W3SVC
+        state: restarted

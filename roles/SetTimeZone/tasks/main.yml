@@ -1,0 +1,17 @@
+- name: Set timezone to Eastern Standard Time
+  win_timezone:
+    timezone: Eastern Standard Time
+
+- name: Synchronize system time with NTP server
+  win_shell: |
+    w32tm /config /manualpeerlist:"time.windows.com,0x8" /syncfromflags:MANUAL
+    w32tm /resync
+  register: time_sync_result
+  changed_when: time_sync_result.rc != 0
+
+- name: Set "RealTimeIsUniversal" registry key to 1
+  win_regedit:
+        key: HKLM:\SYSTEM\CurrentControlSet\Control\TimeZoneInformation
+        name: RealTimeIsUniversal
+        data: 1
+        type: dword

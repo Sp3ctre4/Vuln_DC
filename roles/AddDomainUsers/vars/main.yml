@@ -1,0 +1,31 @@
+ad_users:
+  - first_name: Adolin
+    last_name: Kholin
+    username: adolin
+    password: mayaiscool
+    group: Domain Admins
+    description: Just a guy with a big sword
+  - first_name: Kaladin
+    last_name: StormBlessed
+    username: kaladin
+    password: iclaimtheskies
+    group: Domain Users
+    description: I will protect even those that I hate
+  - first_name: Shallan
+    last_name: Radiant
+    username: shallan
+    password: pattern
+    group: Domain Users
+    description: What is truth
+  - first_name: Sylphrena
+    last_name: Honorspren
+    username: sylphrena
+    password: sprenrock!
+    group: Domain Users
+    description: I found a cool rock
+  - first_name: SVC
+    last_name: Printer
+    username: svc_printer
+    password: G82_10Lp19o1
+    group: Domain Users
+    description: for printing

@@ -1,0 +1,15 @@
+- name: Vulnerable DC
+  hosts: dc
+  gather_facts: true
+  roles:
+  - role: SetHostname
+  - role: DeployAD
+  - role: SetTimeZone
+  - role: NukeDefender
+  - role: EnableRemoteAccess
+  - role: PasswordPolicy
+  - role: AddDomainUsers
+  - role: Passback
+  - role: Impersonation
+  - role: Kerberoast
+  - role: Reboot
