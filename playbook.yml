@@ -2,7 +2,7 @@
   hosts: dc
   gather_facts: true
   roles:
-  - role: SetHostname
+  - role: SetHostName
   - role: DeployAD
   - role: SetTimeZone
   - role: NukeDefender

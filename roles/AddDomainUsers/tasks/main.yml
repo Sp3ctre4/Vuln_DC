@@ -16,9 +16,3 @@
     name: SeInteractiveLogonRight
     users: BUILTIN\Users
     action: add
-
-- name: Set Profiles
-  ansible.windows.win_user_profile:
-    username: "{{item.username}}"
-    state: present
-  loop: "{{ ad_users }}"
