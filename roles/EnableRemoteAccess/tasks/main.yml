@@ -18,12 +18,12 @@
     users: BUILTIN\Users
     action: add
 
-- name: Allow Domain users to log on remotely
-  ansible.windows.win_user_right:
-    name: SeRemoteInteractiveLogonRight
-    users:
-      - Domain Users
-    action: 
+#- name: Allow Domain users to log on remotely
+#  ansible.windows.win_user_right:
+#    name: SeRemoteInteractiveLogonRight
+#    users:
+#      - Domain Users
+#    action: add
     
 - name: Add Domain Users to Remote Desktop Users group
   ansible.windows.win_shell: net localgroup "Remote Desktop Users" "Domain Users" /add

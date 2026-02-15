@@ -1,7 +1,7 @@
 - name: Change Hostname
   ansible.windows.win_hostname:
-    name: KHOLINAR-DC
-    register: res
+    name: ROSHAR-DC
+  register: res
 
 - name: Reboot
   ansible.windows.win_reboot:

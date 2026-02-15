@@ -18,6 +18,7 @@
     action: add
 
 - name: Set Profiles
-  community.windows.win_user_profile:
+  ansible.windows.win_user_profile:
     username: "{{item.username}}"
+    state: present
   loop: "{{ ad_users }}"
