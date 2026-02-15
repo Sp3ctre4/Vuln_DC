@@ -1,9 +1,9 @@
 all:
   hosts:
     dc:
-      hostname: "PORTROYAL-DC"
-      ansible_host: 10.10.10.125 # Domain Controller IP
-      ansible_user: Administrator 
+      hostname: "KHOLINAR-DC"
+      ansible_host: 192.168.10.125 # Domain Controller IP
+      ansible_user: Administrator
       ansible_password: P@$$w0rd!
       ansible_connection: winrm
       ansible_winrm_transport: ntlm
