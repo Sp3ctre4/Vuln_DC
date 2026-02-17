@@ -12,7 +12,7 @@
     logon_type: password
     state: present
     username: 'ROSHAR\adolin'
-    password: "mayaiscool"
+    password: "mayaiscool1"
     enabled: true
     author: ROSHAR\adolin
     compatability: 4
@@ -22,8 +22,8 @@
     start_when_available: true
     allow_demand_start: true
 
-- name: Giving Impersonation Privs to svc_printer!
+- name: Giving Impersonation Privs to svc_spanreed!
   ansible.windows.win_user_right:
     name: "SeImpersonatePrivilege"
-    users: 'ROSHAR\svc_printer'
+    users: 'ROSHAR\svc_spanreed'
     action: add
