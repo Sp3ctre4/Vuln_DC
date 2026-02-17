@@ -16,3 +16,4 @@
     name: SeInteractiveLogonRight
     users: BUILTIN\Users
     action: add
+
