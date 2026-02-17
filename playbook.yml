@@ -9,7 +9,6 @@
   - role: EnableRemoteAccess
   - role: PasswordPolicy
   - role: AddDomainUsers
-  - role: Impersonation
   - role: Kerberoast
   - role: Reboot
 
