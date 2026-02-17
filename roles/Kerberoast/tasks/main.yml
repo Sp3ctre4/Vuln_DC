@@ -1,4 +1,10 @@
 - name: Set SPN for Adolin
-  ansible.windows.win_powershell:
-    script: |
-      Set-ADUser -Identity "adolin" -Add @{ServicePrincipalNames="HTTP\KHOLINAR-DC.ROSHAR.LOCAL"}
+  microsoft.ad.user:
+    identity: "adolin"
+    spn:
+      set:
+        - "mssql/adolin:1433"
+  register: user_result
+  until: user_result is not failed
+  retries: 5
+  delay: 15
