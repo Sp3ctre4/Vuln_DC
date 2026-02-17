@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Windrunners Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.75);
+            padding: 30px;
+            border-radius: 12px;
+            width: 350px;
+            box-shadow: 0 0 20px rgba(173, 216, 230, 0.6);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 5px;
+            color: #87cefa;
+        }
+
+        p.subtitle {
+            text-align: center;
+            font-size: 14px;
+            margin-bottom: 20px;
+            color: #c0e7ff;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: none;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #1e90ff;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #63b3ed;
+        }
+
+        .oath {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #d6f1ff;
+        }
+
+        .success {
+            margin-top: 15px;
+            text-align: center;
+            color: #7CFC00;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Windrunners</h1>
+    <p class="subtitle">Knights Radiant Registration</p>
+
+    <form id="registrationForm">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" required>
+
+        <label for="email">Spanreed Address</label>
+        <input type="email" id="email" required>
+
+        <label for="order">Order Affinity</label>
+        <select id="order" required>
+            <option value="">Select your calling</option>
+            <option value="windrunner">Windrunner</option>
+            <option value="squire">Windrunner Squire</option>
+        </select>
+
+        <label for="ideal">Current Ideal Sworn</label>
+        <select id="ideal" required>
+            <option value="">Select your Ideal</option>
+            <option value="first">First Ideal</option>
+            <option value="second">Second Ideal</option>
+            <option value="third">Third Ideal</option>
+            <option value="fourth">Fourth Ideal</option>
+        </select>
+
+        <div class="oath">
+            "Life before Death. Strength before Weakness. Journey before Destination."
+        </div>
+
+        <button type="submit">Swear the Oath</button>
+    </form>
+
+    <div class="success" id="successMessage">
+        You have taken your first step toward the skies.
+    </div>
+</div>
+
+<script>
+    const form = document.getElementById('registrationForm');
+    const successMessage = document.getElementById('successMessage');
+
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        if (form.checkValidity()) {
+            successMessage.style.display = 'block';
+            form.reset();
+        }
+    });
+</script>
+
+</body>
+</html>
