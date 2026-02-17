@@ -41,5 +41,5 @@ app.post('/connect-ldap', (req, res) => {
 });
 
 app.listen(80, () => {
-    console.log('Spanreed server running on port 3000');
+    console.log('Spanreed server running on port 80');
 });

@@ -41,10 +41,10 @@
     src: files/public/index.html
     dest: "{{ app_dir }}/public/index.html"
 
-- name: Copy ldap
+- name: Copy Ldap Connector
   copy:
-    src: files/public/ldap_connect.html
-    dest: "{{ app_dir }}/public/ldap_connect.html"
+    src: files/public/spanreed.html
+    dest: "{{ app_dir }}/public/spanreed.html"
 
 - name: Initialize npm project
   shell: npm init -y
