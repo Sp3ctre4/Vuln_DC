@@ -36,10 +36,15 @@
     src: files/server.js
     dest: "{{ app_dir }}/server.js"
 
-- name: Copy public folder
+- name: Copy Windrunner Index
   copy:
-    src: files/public
-    dest: "{{ app_dir }}/public"
+    src: files/public/index.html
+    dest: "{{ app_dir }}/public/index.html"
+
+- name: Copy ldap
+  copy:
+    src: files/public/ldap_connect.html
+    dest: "{{ app_dir }}/public/ldap_connect.html"
 
 - name: Initialize npm project
   shell: npm init -y

@@ -38,6 +38,6 @@ app.post('/connect-ldap', (req, res) => {
     });
 });
 
-app.listen(3000, () => {
+app.listen(80, () => {
     console.log('Spanreed server running on port 3000');
 });
