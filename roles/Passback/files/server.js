@@ -8,10 +8,12 @@ app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/printer', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'spanreed.html'));
 });
 
 app.get('/spanreed', (req, res) => {
