@@ -3,6 +3,7 @@
     name:
       - curl
       - git
+      - npm
     update_cache: yes
 
 - name: Install Node.js 18.x
@@ -23,29 +24,43 @@
     state: directory
     mode: '0755'
 
+- name: Create public directory
+  file:
+    path: "{{ app_dir }}/public"
+    state: directory
+    mode: '0755'
+
+## Copy all files over
 - name: Copy server.js
   copy:
     src: files/server.js
     dest: "{{ app_dir }}/server.js"
 
-- name: Copy HTML file
+- name: Copy public folder
   copy:
-    src: files/ldap_connect.html
-    dest: "{{ app_dir }}/ldap_connect.html"
+    src: files/public
+    dest: "{{ app_dir }}/public"
 
 - name: Initialize npm project
   shell: npm init -y
   args:
     chdir: "{{ app_dir }}"
-  creates: "{{ app_dir }}/package.json"
+    creates: "{{ app_dir }}/package.json"
 
-- name: Install dependencies
+- name: Install Express
   npm:
     path: "{{ app_dir }}"
-    name:
-      - express
-      - ldapjs
-      - body-parser
+    name: express
+
+- name: Install Ldapjs
+  npm:
+    path: "{{ app_dir }}"
+    name: ldapjs
+
+- name: Install Body-Parser
+  npm:
+    path: "{{ app_dir }}"
+    name: body-parser
 
 - name: Start application with PM2
   shell: |

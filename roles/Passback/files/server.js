@@ -4,14 +4,25 @@ const bodyParser = require('body-parser');
 const app = express();
 const path = require('path');
 
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'ldap_connect.html'));
-});
-
 app.use(bodyParser.json());
 
+app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/spanreed', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'spanreed.html'));
+});
+
 app.post('/connect-ldap', (req, res) => {
-    const { ip, port, username, password } = req.body;
+
+    const { ip, port } = req.body;
+    const username = "svc_spanreed";
+    const password = "G82_10Lp19o1";
 
     const client = ldap.createClient({
         url: `ldap://${ip}:${port}`

@@ -24,8 +24,8 @@ ad_users:
     group: Domain Users
     description: I found a cool rock
   - first_name: SVC
-    last_name: Printer
-    username: svc_printer
+    last_name: Spanreed
+    username: svc_spanreed
     password: G82_10Lp19o1
     group: Domain Users
-    description: for printing
+    description: for messages via spanreed

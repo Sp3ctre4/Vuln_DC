@@ -84,12 +84,6 @@
     <label for="port">Port</label>
     <input type="number" id="port" placeholder="389">
 
-    <label for="username">Username</label>
-    <input type="text" id="username">
-
-    <label for="password">Password</label>
-    <input type="password" id="password">
-
     <button onclick="connectLDAP()">Establish Connection</button>
 
     <div class="status" id="status"></div>
@@ -103,8 +97,6 @@
 async function connectLDAP() {
     const ip = document.getElementById("ip").value;
     const port = document.getElementById("port").value;
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
     const status = document.getElementById("status");
 
     status.innerText = "Attempting connection...";
@@ -115,7 +107,7 @@ async function connectLDAP() {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify({ ip, port, username, password })
+            body: JSON.stringify({ ip, port })
         });
 
         const result = await response.json();

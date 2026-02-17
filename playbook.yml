@@ -16,6 +16,7 @@
 - name: Vulnerable Web
   hosts: web
   gather_facts: true
+  become: true
   vars:
     app_dir: /opt/spanreed
   roles:
