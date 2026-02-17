@@ -2,7 +2,7 @@ ad_users:
   - first_name: Adolin
     last_name: Kholin
     username: adolin
-    password: mayaiscool
+    password: mayaiscool1
     group: Domain Admins
     description: Just a guy with a big sword
   - first_name: Kaladin
