@@ -74,3 +74,7 @@
     pm2 save
   args:
     chdir: "{{ app_dir }}"
+
+# https://ploi.io/documentation/server/how-to-make-pm2-start-on-boot
+- name: Register application for Startup
+  shell: pm2 startup
