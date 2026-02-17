@@ -9,7 +9,14 @@
   - role: EnableRemoteAccess
   - role: PasswordPolicy
   - role: AddDomainUsers
-  - role: Passback
   - role: Impersonation
   - role: Kerberoast
   - role: Reboot
+
+- name: Vulnerable Web
+  hosts: web
+  gather_facts: true
+  vars:
+    app_dir: /opt/spanreed
+  roles:
+  - role: Passback

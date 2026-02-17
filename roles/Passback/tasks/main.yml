@@ -1,38 +1,56 @@
-- name: Install Web Server (IIS) role
-  win_feature:
-    name: Web-Server
-    state: present
-    include_management_tools: true
+- name: Install required packages
+  apt:
+    name:
+      - curl
+      - git
+    update_cache: yes
 
-# https://docs.ansible.com/projects/ansible/latest/collections/community/windows/win_psmodule_module.html
-- name: Add IIS Administration Powershell Module
-  community.windows.win_psmodule:
-    name: IISAdministration
-    state: present
+- name: Install Node.js 18.x
+  shell: |
+    curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+    apt-get install -y nodejs
+  args:
+    executable: /bin/bash
 
-# https://docs.ansible.com/projects/ansible/latest/collections/microsoft/iis/website_module.html
-- name: Create a default website in 'Started' state
-  microsoft.iis.website:
-    name: Windrunner
-    physical_path: C:\inetpub\wwwroot
-    state: started
-    bindings:
-      set:
-        - ip: 127.0.0.1
-          port: 80
-          hostname: wyndrunners.local
+- name: Install PM2 globally
+  npm:
+    name: pm2
+    global: yes
 
-- name: Copy Windrunner Registration Page
-  ansible.windows.win_copy:
-    src: files/index.html
-    dest: C:\inetpub\wwwroot
+- name: Create application directory
+  file:
+    path: "{{ app_dir }}"
+    state: directory
+    mode: '0755'
 
-- name: Copy printer to wwwroot
-  ansible.windows.win_copy:
-    src: files/printer
-    dest: C:\inetpub\wwwroot
+- name: Copy server.js
+  copy:
+    src: files/server.js
+    dest: "{{ app_dir }}/server.js"
 
-- name: Copy ldap_settings to wwwroot
-  ansible.windows.win_copy:
-    src: files/ldap_settings
-    dest: C:\inetpub\wwwroot
+- name: Copy HTML file
+  copy:
+    src: files/ldap_connect.html
+    dest: "{{ app_dir }}/ldap_connect.html"
+
+- name: Initialize npm project
+  shell: npm init -y
+  args:
+    chdir: "{{ app_dir }}"
+  creates: "{{ app_dir }}/package.json"
+
+- name: Install dependencies
+  npm:
+    path: "{{ app_dir }}"
+    name:
+      - express
+      - ldapjs
+      - body-parser
+
+- name: Start application with PM2
+  shell: |
+    pm2 delete spanreed || true
+    pm2 start server.js --name spanreed
+    pm2 save
+  args:
+    chdir: "{{ app_dir }}"

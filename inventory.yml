@@ -8,3 +8,9 @@ all:
       ansible_connection: winrm
       ansible_winrm_transport: ntlm
       ansible_port: 5985
+    web:
+      hostname: "AZIR-WB"
+      ansible_host: 192.168.10.131 # Web Server IP
+      ansible_user: aziradmin
+      ansible_password: P@$$w0rd#
+      ansible_connection: ssh
